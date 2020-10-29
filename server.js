@@ -12,8 +12,8 @@ app.use(cors());
 app.use(express.json());
 
 //*** MongoDB Server Instance ***//
-const devUrl = 'mongodb://localhost/Blog';
-mongoose.connect(devUrl, {
+const uri = process.env.DEV_URI
+mongoose.connect(uri, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false,
@@ -25,9 +25,8 @@ mongoose.connect(devUrl, {
       console.error(`Connetion Error: ${err}`);
   });
   db.once(`open`, _ => {
-      console.log(`Connected to ${devUrl}`);
+      console.log(`Connected to ${uri}`);
   });
-
 
 //*** Start API Server ***//
 app.listen(port, () => {
